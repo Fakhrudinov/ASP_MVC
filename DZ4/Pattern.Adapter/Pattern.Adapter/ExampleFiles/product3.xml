@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<product>
+  <productId>40</productId>
+  <productName>XML Product3</productName>
+  <info>Velit euismod in pellentesque massa placerat duis ultricies lacus.</info>
+  <price>4.02</price>
+  <color>Purple</color>
+  <weight>3</weight>
+  <itemsForSale>9</itemsForSale>
+</product>

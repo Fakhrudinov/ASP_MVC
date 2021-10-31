@@ -1,0 +1,8 @@
+{
+  "id": 11,
+  "categoryId": 15,
+  "name": "file Product1",
+  "description": "Lorem ipsum dolor sit amet, consectetur adipiscing",
+  "price": 5.21,
+  "inStockQuantity": 56
+}
