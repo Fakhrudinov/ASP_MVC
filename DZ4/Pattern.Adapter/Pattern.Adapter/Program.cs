@@ -1,4 +1,5 @@
-﻿using Pattern.Adapter.Model;
+﻿using Pattern.Adapter.DataBaseLayer;
+using Pattern.Adapter.Model;
 using Pattern.Adapter.Repositories;
 using Pattern.Adapter.Repositories.Interfaces;
 using System;
@@ -18,6 +19,7 @@ namespace Pattern.Adapter
             /// (предположительно из разных веб сервисов), олицетворяюющие товар в магазинах. 
             /// Структуры не похожи друг на друга, но вам нужно их учесть, сделать универсально. 
             /// Структуры на ваше усмотрение.
+            /// И в последний момент: запись в базу данных
 
             Console.WriteLine("Pattern Adapter realisation.");
 
@@ -25,6 +27,9 @@ namespace Pattern.Adapter
 
             RemoteRepositoryAdaptee adaptee = new RemoteRepositoryAdaptee();
             IRemoteRepository target = new RemoteRepositoryAdapter(adaptee);
+
+            IDataBase myDataBase = new DataBase();
+            myDataBase.CreateDatabaseAndTable();
 
             // Здесь создаем набор задач
             var taskDirectFileData = dr.ReadTextDirectlyAsync(@".\ExampleFiles\product1.json");
@@ -36,6 +41,7 @@ namespace Pattern.Adapter
 
             var tasks = new List<Task<ResponceObject>>();
             tasks.AddRange(new[] { taskDirectFileData, taskRemoteFileData, taskRemoteXmlFileData, taskDirectHttpData, taskRemoteHttpData });
+            
 
             //отправляем задачи на выполнение
             Console.WriteLine("Send task pull to execute.");
@@ -56,17 +62,40 @@ namespace Pattern.Adapter
                 cts.Dispose();
             }
 
-            //успешные таски обработаем
+            // успешные таски запишем в БД
             foreach (var task in tasks)
             {
                 if (task.IsCompletedSuccessfully && task.Result != null)
                 {
-                    Console.WriteLine($"id: {task.Result.id}, " +
-                        $"from: {task.Result.source}, " +
-                        $"name:{task.Result.name}, " +
-                        $"desc: {task.Result.description}, " +
-                        $"price: {task.Result.price}");
+                    ResponceObject objectFromTask = new ResponceObject();
+
+                    objectFromTask.id = task.Result.id;
+                    objectFromTask.source = task.Result.source;
+                    objectFromTask.name = task.Result.name;
+                    objectFromTask.description = task.Result.description;
+                    objectFromTask.categoryId = task.Result.categoryId;
+                    objectFromTask.price = task.Result.price;
+                    objectFromTask.inStockQuantity = task.Result.inStockQuantity;
+
+                    myDataBase.SetNewRecord(objectFromTask);
                 }
+            }
+
+            // получим из БД
+            List<ResponceObject> inDataBase = myDataBase.GetAllProducts();
+
+            // выведем на экран
+            foreach (ResponceObject product in inDataBase)
+            {
+                Console.WriteLine(
+                + product.id 
+                + ", source:" + product.source
+                + ", name:" + product.name
+                + ", description:" + product.description
+                + ", categoryId:" + product.categoryId
+                + ", price:" + product.price
+                + ", inStockQuantity:" + product.inStockQuantity
+                );
             }
 
             Console.WriteLine("Jobs done.");

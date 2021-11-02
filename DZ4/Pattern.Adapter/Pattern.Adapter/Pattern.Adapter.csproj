@@ -10,6 +10,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="System.Data.SQLite.Core" Version="1.0.115" />
+  </ItemGroup>
+
+  <ItemGroup>
     <None Update="ExampleFiles\product1.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>

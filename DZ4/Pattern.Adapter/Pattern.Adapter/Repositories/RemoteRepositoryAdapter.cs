@@ -54,6 +54,7 @@ namespace Pattern.Adapter.Repositories
                 result.description = $"{remoteResult.info}, color {remoteResult.color}, weight {remoteResult.weight}";
                 result.price = remoteResult.price;
                 result.categoryId = 7;
+                result.inStockQuantity = remoteResult.itemsForSale;
 
                 return result;
             }
