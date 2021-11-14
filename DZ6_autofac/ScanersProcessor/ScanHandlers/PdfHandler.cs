@@ -5,7 +5,7 @@ using System;
 
 namespace ScanerProcessor.ScanHandlers
 {
-    class PdfHandler : AbstractHandler
+    public class PdfHandler : AbstractHandler
     {
         public override object Handle(ScanModel scan, ILogging _log)
         {

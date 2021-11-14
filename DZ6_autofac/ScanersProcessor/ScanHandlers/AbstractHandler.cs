@@ -4,7 +4,7 @@ using ScanerProcessor.Models;
 
 namespace ScanerProcessor.ScanHandlers
 {
-    abstract class AbstractHandler : IHandler
+    public abstract class AbstractHandler : IHandler
     {
         private IHandler _nextHandler;
 

@@ -8,25 +8,30 @@ namespace ScanerProcessor
     public class WorkWithScan : IWorkWithScan
     {
         private ILogging _log;
-        public WorkWithScan(ILogging log)
+
+        private PngHandler _png;
+        private PdfHandler _pdf;
+        private JpegHandler _jpeg;
+
+        public WorkWithScan(ILogging log, PngHandler png, PdfHandler pdf, JpegHandler jpeg)
         {
             _log = log;
+
+            _png = png;
+            _pdf = pdf;
+            _jpeg = jpeg;
         }
 
         public void AnalizeIncomingScan(ScanModel scannedDocument)
         {
             // на паттерне
             // Цепочка обязанностей // Chain of Responsibility // CoR // Chain of Command
-            
-            // Создаем обработчики
-            var png = new PngHandler();
-            var jpeg = new JpegHandler();
-            var pdf = new PdfHandler();
-            //цепочка обработки
-            pdf.SetNext(jpeg).SetNext(png);
+
+            // цепочка обработки
+            _pdf.SetNext(_jpeg).SetNext(_png);
 
             // Отправка скана в цепочку обработчиков, начиная с pdf
-            TryToHandleScan(pdf, scannedDocument, _log);
+            TryToHandleScan(_pdf, scannedDocument, _log);
         }
 
         private void TryToHandleScan(IHandler handler, ScanModel scannedDocument, ILogging _log)

@@ -5,7 +5,7 @@ using System;
 
 namespace ScanerProcessor.ScanHandlers
 {
-    class JpegHandler : AbstractHandler
+    public class JpegHandler : AbstractHandler
     {
         public override object Handle(ScanModel scan, ILogging _log)
         {

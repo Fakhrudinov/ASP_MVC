@@ -1,5 +1,4 @@
 ﻿using LoggingLib;
-using ScanerProcessor;
 using ScanerProcessor.Interfaces;
 using ScanerProcessor.Models;
 using System;
@@ -9,9 +8,12 @@ namespace ScanerPhisicalDevice
     public class Scanner : IScaner
     {
         private ILogging _log;
-        public Scanner(ILogging log)
+        private IWorkWithScan _newWork;
+
+        public Scanner(ILogging log, IWorkWithScan newWork)
         {
             _log = log;
+            _newWork = newWork;
         }
 
         public void Scan()
@@ -39,9 +41,7 @@ namespace ScanerPhisicalDevice
             _log.LogWrite("Physical scan complete, begin work with scanned data, size=" 
                 + scannedDocument.ScannedDocument.Length);
 
-            IWorkWithScan newWork = new WorkWithScan(_log);
-
-            newWork.AnalizeIncomingScan(scannedDocument);       
+            _newWork.AnalizeIncomingScan(scannedDocument);       
         }
     }
 }
