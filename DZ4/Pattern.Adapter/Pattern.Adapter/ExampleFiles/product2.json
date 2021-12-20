@@ -1,0 +1,9 @@
+{
+  "productId": 21,
+  "productName": "file Product2",
+  "info": "Duis aute irure dolor in reprehenderit in voluptate",
+  "price": 5.10,
+  "color": "green",
+  "weight": 0.2,
+  "itemsForSale": 4
+}
