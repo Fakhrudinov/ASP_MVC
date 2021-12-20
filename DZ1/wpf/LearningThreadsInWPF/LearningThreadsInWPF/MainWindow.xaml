@@ -1,0 +1,40 @@
+﻿<Window x:Class="LearningThreadsInWPF.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:local="clr-namespace:LearningThreadsInWPF"
+        Title="Fibonacci" Height="200" Width="400">
+    <Grid  x:Name="LayoutRoot">
+        <Grid.RowDefinitions>
+            <RowDefinition />
+            <RowDefinition />
+            <RowDefinition />
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition />
+            <ColumnDefinition />
+            <ColumnDefinition />
+        </Grid.ColumnDefinitions>
+
+        <Label x:Name="indexFibonacci" Content="Indx" 
+               HorizontalAlignment="Left" VerticalAlignment="Center" 
+               Height="30" Width="35" Margin="32,0,0,0"  />
+        <TextBox x:Name="textBlock" Text="" TextAlignment="Right"
+                 Grid.Column="0" Grid.ColumnSpan="3" TextWrapping="Wrap" Margin="80,18,85,15" />
+        <TextBox  x:Name="seconds" Text="0,5" Width="53"
+                  Grid.Row="2" Grid.Column="0"
+                  TextWrapping="Wrap"  HorizontalAlignment="Left" 
+                  IsEnabled="False" Margin="80,18,0,12" />
+        <Button Content="+" Grid.Column="1" 
+                HorizontalAlignment="Left" VerticalAlignment="Top" 
+                Height="24" Grid.Row="2"  Width="24" 
+                Click="Button_Click_Increment" />
+        <Button Content="-" Grid.Column="1" 
+                HorizontalAlignment="Left" VerticalAlignment="Bottom" 
+                Height="24" Grid.Row="2"  Width="24" 
+                Click="Button_Click_Decrement" />
+        <Label Content="Регулятор скорости смены индекса числа Фибоначчи, в секундах" 
+               Grid.ColumnSpan="3" Grid.Row="1" 
+               HorizontalAlignment="Left" VerticalAlignment="Bottom" 
+               Height="25" Width="390" Margin="0,0,0,0" />
+    </Grid>
+</Window>
