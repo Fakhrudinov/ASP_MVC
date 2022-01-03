@@ -1,0 +1,57 @@
+﻿@model FirstMVC.Models.Company
+
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+
+<img src = "~/Images/planetExpressLogo.png" alt="Logo" align="left" style="float:left; padding-right: 30px"/>
+<div class="jumbotron">    
+    <h1>@Html.DisplayFor(model => model.Name), since year @Html.DisplayFor(model => model.EstablishedYear)</h1>
+</div>
+
+
+<div class="row">    
+    <h2>Welcome to @Html.DisplayFor(model => model.Name) home page</h2>
+</div>
+    
+    <p>
+        @Html.DisplayFor(model => model.ShortDescription)
+    </p>
+    <p>        
+        @Html.DisplayFor(model => model.Description)
+    </p>
+
+
+<table class="table" style="margin-top:50px">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Location)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Phone)
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>@Html.DisplayFor(model => model.Location)</td>
+            <td>@Html.DisplayFor(model => model.Phone)</td>
+        </tr>
+
+    </tbody>
+</table>
+
+
+<h4>
+    <a class="nav-link text-dark" asp-area="" asp-controller="Departaments" asp-action="Index">
+        @Html.DisplayNameFor(model => model.Departaments)
+    </a>    
+</h4>
+<p>
+        @foreach (var dept in @Model.Departaments)
+        {
+            <strong style="padding-left:50px">@dept.DepartamentName<br /></strong>
+        }
+</p>

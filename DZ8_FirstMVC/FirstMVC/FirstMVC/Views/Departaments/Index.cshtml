@@ -1,0 +1,48 @@
+﻿@model IEnumerable<FirstMVC.Models.Departament>
+
+@{
+    ViewData["Title"] = "Our departaments";
+}
+
+<h1>Our departaments</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.DepartamentName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Employees)
+            </th>
+            <th>
+                Actions
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+    @foreach (var item in Model) {
+        <tr>
+            <td>
+                <h3>
+                    @Html.DisplayFor(modelItem => item.DepartamentName)
+                </h3>                
+            </td>
+            <td>
+                @foreach (var employee in item.Employees)
+                    {
+                        <strong>@employee.FirstName<span> </span>@employee.LastName</strong> <span> as </span> @employee.Position<br />
+                    }
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.DepartamentID">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.DepartamentID">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.DepartamentID">Delete</a>
+            </td>
+        </tr>
+    }
+    </tbody>
+</table>
