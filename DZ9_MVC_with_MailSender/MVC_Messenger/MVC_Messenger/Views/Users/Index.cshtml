@@ -1,0 +1,113 @@
+﻿@model PaginationViewUsers
+
+@{
+    ViewData["Title"] = "All Users list";
+}
+
+<h1>All Users list</h1>
+
+@{
+    if (User.IsInRole("admin"))
+    {
+        <p>
+            <a asp-action="Create">Create New</a>
+        </p>
+    }
+}
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                Name
+            </th>
+            @{
+                if (User.IsInRole("admin"))
+                {
+                        <th>
+                            Password
+                        </th>
+                }
+            }
+            <th>
+                Email
+            </th>
+            <th>
+                PhoneNumber
+            </th>
+            <th>
+                Role
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (User user in Model.Users)
+            {
+            <tr>
+                <td>
+                    @user.Name
+                </td>
+                @{
+                    if (User.IsInRole("admin"))
+                    {
+                        <td>
+                            @user.Password
+                        </td>
+                    }
+                }
+                <td>
+                    @user.Email
+                </td>
+                <td>
+                    @user.PhoneNumber
+                </td>
+                <td>
+                    @user.Role.Name
+                </td>
+                 <td>
+                @{
+                    if (User.IsInRole("admin"))
+                    {
+                        <a asp-action="Edit" asp-route-id="@user.UserID">Edit</a>
+                        <span> | </span>
+                        <a asp-action="Delete" asp-route-id="@user.UserID">Delete</a>
+                        <span> | </span>
+                    }
+
+                    if (User.Identity.IsAuthenticated)
+                    {
+                        <a asp-action="SendEmail" asp-route-id="@user.UserID">Send EMail</a>
+                        <span> | </span>
+                    }
+                }
+                
+                <a asp-action="Details" asp-route-id="@user.UserID">Details</a>                
+            </td>
+            </tr>
+            }
+    </tbody>
+</table>
+
+<div style="border:1px solid black; display:inline; padding:5px">
+@if (Model.PageViewModel.HasPreviousPage)
+{
+    <a asp-action="Index" asp-route-page="@(Model.PageViewModel.PageNumber - 1)"> Назад </a>
+}
+else
+{
+    <span>Назад </span>
+}
+</div>
+<span> Page #</span> @Model.PageViewModel.PageNumber <span> From </span> @Model.PageViewModel.TotalPages <span> </span>
+
+<div style="border:1px solid black; display:inline; padding:5px">
+@if (Model.PageViewModel.HasNextPage)
+{
+    <a asp-action="Index" asp-route-page="@(Model.PageViewModel.PageNumber + 1)"> Вперед </a>
+}
+else
+{
+    <span> Вперед </span>
+}
+</div>
