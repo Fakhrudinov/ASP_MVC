@@ -1,8 +1,65 @@
 ﻿@{
-    ViewData["Title"] = "Home Page";
+    ViewData["Title"] = "Home Page 'Итоговой проект'";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+    <div class="text-center">
+        <h1 class="display-4">Итоговой проект</h1>
+    </div>
+    <p>Сервис по отправке различных сообщений. 
+        <br />Должен работать как по принудительной отправки, так и по расписанию (отчеты). 
+        <br />Текст сообщений должен проходить через шаблонизатор.</p>
+    <h3>Admin</h3>
+    <p>Пользователи с статусом 'admin' будут получать рассылку по расписанию(каждые 10 мин.) и иметь возможность отсылать массовую рассылку всем пользователям со статусом 'user'</p>
+    <p>Также админам доступно редактирование пользователей - т.е. админ может назначить другого пользователя админом</p>
+    <p>Данные для входа под админом
+        <br /><strong>login:</strong> asbuka1975@yandex.ru
+        <br /><strong>Password:</strong> 12345
+    </p>
+    
+<div style="background-color: lightgray">
+    @model MVC_Messenger.Models.Login
+
+    @{
+        if (User.Identity.IsAuthenticated)
+        {
+            <p>Hello, @User.Identity.Name </p>
+            <a asp-action="Logout" asp-controller="Account">Logout</a>
+        }
+        else
+        {
+            <h2>Вход на сайт</h2>
+            <a asp-action="Register" asp-controller="Account">Регистрация</a>
+ 
+            <form asp-action="Login" asp-controller="Account" asp-anti-forgery="true">
+                <div class="validation" asp-validation-summary="ModelOnly"></div>
+                <div>
+                    <div class="form-group">
+                        <label asp-for="Email">Введите Email</label>
+                        <input type="text" asp-for="Email" />
+                        <span asp-validation-for="Email" />
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Password">Введите пароль</label>
+                        <input asp-for="Password" />
+                        <span asp-validation-for="Password" />
+                    </div>
+                    <div class="form-group">
+                        <input type="submit" value="Войти" class="btn btn-outline-dark" />
+                    </div>
+                </div>
+            </form>
+        }
+    }
 </div>
+
+<h2>Реализуемые задачи</h2>
+<p>Для закрепления курса требуется сделать сервис, который занимается рассылкой сообщений зарегистрированным пользователям. 
+В нем должны быть реализованы абстракции шлюзов, но действующим шлюзом 
+(предусмотреть развитие на различные сообщения – смс, пуш и т. д.) должен быть только пока шлюз отправки электронной почты. 
+Электронное письмо должно формироваться по шаблону зарегистрированном в системе, к примеру Razor шаблон. 
+Предусмотреть так же обязательно отправку сообщений в определенное время (вспомнить Quartz), к примеру - отчеты для менеджеров.</p>
+<p>Сервисы отправки сообщений являются частыми запросами современных решений. 
+Они либо агрегируют несколько типов сообщений либо пишутся на каждый тип свой сервис.</p>
+<p></p>
+
+

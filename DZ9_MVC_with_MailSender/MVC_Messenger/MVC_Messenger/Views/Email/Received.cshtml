@@ -1,0 +1,74 @@
+﻿@model PaginationViewEmails
+
+@{
+    ViewData["Title"] = "My Received Emails";
+}
+
+<h1>My Received Emails</h1>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                ID
+            </th>
+            <th>
+                SendDateTime
+            </th>
+            <th>
+                Sender
+            </th>
+            <th>
+                Subject
+            </th>
+            <th>
+                Message
+            </th>            
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (Email email in Model.Emails)
+            {
+            <tr>
+                <td>
+                    @email.EmailID
+                </td>
+                <td>
+                    @email.SendDateTime
+                </td>
+                <td>
+                    <stong>From: </stong>@email.Sender
+                </td>
+                <td>
+                    @email.Subject
+                </td>
+                <td>
+                    @email.Message
+                </td>
+            </tr>
+            }
+    </tbody>
+</table>
+
+<div style="border:1px solid black; display:inline; padding:5px">
+@if (Model.PageViewModel.HasPreviousPage)
+{
+    <a asp-action="Received" asp-route-page="@(Model.PageViewModel.PageNumber - 1)"> Назад </a>
+}
+else
+{
+    <span>Назад </span>
+}
+</div>
+<span> Page #</span> @Model.PageViewModel.PageNumber <span> From </span> @Model.PageViewModel.TotalPages <span> </span>
+
+<div style="border:1px solid black; display:inline; padding:5px">
+@if (Model.PageViewModel.HasNextPage)
+{
+    <a asp-action="Received" asp-route-page="@(Model.PageViewModel.PageNumber + 1)"> Вперед </a>
+}
+else
+{
+    <span> Вперед </span>
+}
+</div>
